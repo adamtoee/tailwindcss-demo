@@ -3,36 +3,31 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+
 function App() {
-  // State to store profile data
   const [imageUrl, setImageUrl] = useState('');
   const [name, setName] = useState('');
   const [bio, setBio] = useState('');
-
-  // Reference for the file input
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]; // Get the first file if available
+    const file = e.target.files?.[0];
     if (file) {
-      setImageUrl(URL.createObjectURL(file)); // Create a URL for the image and store it in state
+      setImageUrl(URL.createObjectURL(file));
     }
   };
 
-  // Trigger file input when profile image is clicked
   const handleProfileImageClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click(); // Trigger file input click
+      fileInputRef.current.click();
     }
   };
 
   return (
-    <>
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="profile-card">
+      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
         {/* Profile image input */}
-        <div className="profile-image">
+        <div className="flex justify-center mb-6">
           <input
             type="file"
             accept="image/*"
@@ -40,56 +35,53 @@ function App() {
             className="hidden"
             ref={fileInputRef}
           />
-        
-          <div 
+          <div
             onClick={handleProfileImageClick}
-            className="profile-info"
+            className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer overflow-hidden hover:bg-gray-300 transition"
           >
             {imageUrl ? (
               <img
                 src={imageUrl}
                 alt="Profile"
-                className="w-full h-full object-cover rounded-full"
+                className="w-full h-full object-cover"
               />
             ) : (
-              <div className="flex justify-center items-center w-full h-full text-gray-400">
-                <span className="text-2xl">+</span>
-              </div>
+              <span className="text-4xl text-gray-500">+</span>
             )}
           </div>
         </div>
-          {/* Name input */}
-          <div className="mb-6">
-            <input
-              type="text"
-              placeholder="Your Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="name-input"
-            />
-          </div>
-          {/* Bio textarea */}
-          <div className="mb-6">
-            <textarea
-              rows="3"
-              placeholder="Write a short bio about yourself..."
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              className="bio-textarea"
-            ></textarea>
-          </div>
+
+        {/* Name input */}
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full sm:w-full md:w-3/4 lg:w-2/3 p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition"
+          />
         </div>
 
-        {/* Save Changes Button */}
-        <div className="save-button">
-          <button>
+        {/* Bio textarea */}
+        <div className="mb-6">
+          <textarea
+            rows={3}
+            placeholder="Write a short bio about yourself..."
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            className="w-full sm:w-full md:w-3/4 lg:w-2/3 p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition"
+          ></textarea>
+        </div>
+
+        {/* Save button */}
+        <div className="text-center">
+          <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
             Save Changes
           </button>
         </div>
       </div>
-    
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
